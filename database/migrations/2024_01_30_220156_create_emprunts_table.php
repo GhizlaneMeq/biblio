@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('description');
             $table->date('date_emprunt');
             $table->date('return_date')->nullable();
-            $table->date('is_returned')->nullable(); 
+            $table->boolean('is_returned')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('book_id')->constrained()->onDelete('cascade');
             $table->timestamps();

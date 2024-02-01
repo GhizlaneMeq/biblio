@@ -222,11 +222,9 @@
         }
     </style>
 
+
     <div class="container">
-
-
-
-        <div class="main-body ml-16">
+        <div class="main-body ml-16 mt-36">
             @if (session('success'))
                 <div class="bg-green-200 text-green-800 border border-green-600 px-4 py-2 rounded relative" role="alert">
                     <p>{{ session('success') }}</p>
@@ -236,47 +234,36 @@
                     </button>
                 </div>
             @endif
-
             <div class="card border-left-primary shadow h-100 custom-card">
-
-                <a href="{{ route('books.create') }}" class="btn btn-primary">Add New Book</a>
+                <a href="{{ route('users.create') }}" class="btn btn-primary">Add New User</a>
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <table class="table table-borderless">
                             <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Author</th>
-                                    <th>Genre</th>
-                                    <th>Publication Year</th>
-                                    <th>Total Copies</th>
-                                    <th>Available Copies</th>
-                                    <th>Actions</th>
-                                </tr>
+                                <thead>
+                                    <tr>
+                                        <th>First name</th>
+                                        <th>Last name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Role</th>
+                                    </tr>
+                                </thead>
                             </thead>
                             <tbody>
-
-
-                                @foreach ($books as $book)
+                                @foreach ($users as $user)
                                     <tr>
-                                        <td>{{ $book->id }}</td>
-                                        <td>{{ $book->title }}</td>
-                                        <td>{{ $book->author }}</td>
-                                        <td>{{ $book->genre }}</td>
-                                        <td>{{ $book->publication_year }}</td>
-                                        <td>{{ $book->total_copies }}</td>
-                                        <td>{{ $book->available_copies }}</td>
+                                        <td>{{ $user->firstname }}</td>
+                                        <td>{{ $user->lastname }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $user->phone }}</td>
+                                        <td>{{ $user->role->name }}</td>
                                         <td>
-                                            <a href="{{ route('books.show', $book->id) }}" class="btn btn-info">View
-                                                details</a>
-                                            <a href="{{ route('books.edit', $book->id) }}" class="btn btn-warning">Edit</a>
-                                            <form action="{{ route('books.destroy', $book->id) }}" method="post"
-                                                style="display: inline;">
+                                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">Edit</a>
+                                            <form action="{{ route('users.destroy', $user->id) }}" method="post" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger"
-                                                    onclick="return confirm('Are you sure?')">Delete</button>
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -288,6 +275,4 @@
             </div>
         </div>
     </div>
-
-    </span>
 @endsection

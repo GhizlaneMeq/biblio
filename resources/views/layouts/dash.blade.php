@@ -31,7 +31,7 @@
                     </svg>
                   </button>
                   <a href="" class="text-xl font-bold flex items-center lg:ml-2.5">
-                    <img src="public/img/logo.png" class="h-6 mr-2" alt="wiki Logo">
+                    <img src="public/img/logo.png" class="h-6 mr-2" alt="biblio Logo">
                   </a>
                   <form action="search" method="GET" class="hidden lg:block lg:pl-32">
                     <label for="topbar-search" class="sr-only">Search</label>
@@ -163,7 +163,7 @@
                                 </a>
                             </li>
 
-                            
+
 
                         </ul>
                     </div>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\EmpruntController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -26,9 +27,22 @@ Auth::routes();
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
+
+Route::resource('users', UserController::class);
 Route::resource('books', BookController::class);
 
 Route::resource('emprunts', EmpruntController::class);
 
-Route::get('borrowed-books', [EmpruntController::class, 'userBorrowedBooks'])->middleware('auth');
+//Route::get('borrowed-books', [EmpruntController::class, 'userBorrowedBooks'])/* ->middleware('auth') */;
+
+
+
+
+/*
+Route::middleware(['auth','checkAdmin'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    });
+
+}); */
 

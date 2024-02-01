@@ -2,55 +2,70 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Http\Requests\EmpruntRequest;
 use App\Models\Emprunt;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class EmpruntController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
         $emprunts = Emprunt::with(['user', 'book'])->get();
-
         return view('emprunts.display', compact('emprunts'));
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
-
         return view('emprunts.create');
     }
 
-    public function store(Request $request)
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(EmpruntRequest  $request)
     {
-        $validatedData = $request->validate([
-            'description' => 'nullable|string',
-            'date_emprunt' => 'required|date',
-            'return_date' => 'nullable|date',
-            'is_returned' => 'nullable|date',
-            'user_id' => 'required|exists:users,id',
-            'book_id' => 'required|exists:books,id',
-        ]);
 
-        $unreturnedBooks = Emprunt::where('user_id', $validatedData['user_id'])
+        /* $unreturnedBooks = Emprunt::where('user_id', $validatedData['user_id'])
             ->where('is_returned', 0)
             ->get();
 
         if ($unreturnedBooks->count() > 0) {
             return redirect()->back()->withErrors(['error' => 'You cannot borrow another book until you return your previous one.']);
+        } */
 
+        $emprunt = Emprunt::create($request->all());
 
-        }
+        //$book = Book::find($validatedData['book_id']);
 
-        $emprunt = Emprunt::create($validatedData);
-
-        $book = Book::find($validatedData['book_id']);
-
-        $book->decrement('available_copies');
+        //$book->decrement('available_copies');
         return redirect()->route('emprunts.index')->with('success', 'Emprunt created successfully.');
     }
 
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, Emprunt $emprunt)
     {
         $request->validate([
@@ -64,22 +79,11 @@ class EmpruntController extends Controller
         return redirect()->route('emprunts.index')->with('success', 'Status updated successfully.');
     }
 
-
-
-
-
-    public function userBorrowedBooks()
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
     {
-        $userId = Auth::id();
-
-        $borrowedBooks = Emprunt::with(['book'])
-            ->where('user_id', $userId)
-            ->get();
-
-        return view('emprunts.user_books', compact('borrowedBooks'));
+        //
     }
 }
-
-
-
-
