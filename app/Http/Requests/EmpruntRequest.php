@@ -28,7 +28,7 @@ class EmpruntRequest extends FormRequest
             'return_date' => 'nullable|date',
             'is_returned' => 'nullable|boolean',
             'user_id' => 'required|exists:users,id',
-            'book_id' => ['required|exists:books,id', new CheckBookAvailableCopies() ]
+            'book_id' => ['required', new CheckBookAvailableCopies()]
         ];
     }
 }
