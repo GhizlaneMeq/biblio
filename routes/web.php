@@ -18,9 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
@@ -28,21 +25,19 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
 
-Route::resource('users', UserController::class);
 Route::resource('books', BookController::class);
+Route::get('borrowed-books', [EmpruntController::class, 'userBorrowedBooks']);
 
-Route::resource('emprunts', EmpruntController::class);
-
-//Route::get('borrowed-books', [EmpruntController::class, 'userBorrowedBooks'])/* ->middleware('auth') */;
-
-
-
-
-/*
-Route::middleware(['auth','checkAdmin'])->group(function () {
+Route::middleware(['auth', 'checkAdmin'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     });
 
-}); */
+    Route::resource('users', UserController::class);
+    Route::resource('books', BookController::class)->except(['show']);
+    Route::get('books.archive', [BookController::class, 'archive'])->name('books.archive');
+    Route::post('/books/restore/{id}', [BookController::class, 'restore'])->name('books.restore');
+    Route::resource('emprunts', EmpruntController::class);
+
+});
 

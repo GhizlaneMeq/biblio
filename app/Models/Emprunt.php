@@ -27,4 +27,12 @@ class Emprunt extends Model
     {
         return $this->belongsTo(Book::class)->withTrashed(); // Include trashed books if needed
     }
+
+
+    protected static function booted(): void
+    {
+        static::created(function (Emprunt $emprunt) {
+            $emprunt->book->decrement('available_copies');
+        });
+    }
 }

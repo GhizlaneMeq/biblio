@@ -238,9 +238,6 @@
             @endif
 
             <div class="card border-left-primary shadow h-100 custom-card" style="margin-top:100px">
-                <a href="{{ route('books.create') }}" class="btn btn-primary">Add New Book</a>
-                <a href="{{ route('books.archive') }}" class="btn btn-primary">Archive</a>
-
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <table class="table table-borderless">
@@ -272,13 +269,10 @@
                                             <a href="{{ route('books.show', $book->id) }}" class="btn btn-info">View
                                                 details</a>
                                             <a href="{{ route('books.edit', $book->id) }}" class="btn btn-warning">Edit</a>
-                                                <form action="{{ route('books.destroy', $book->id) }}" method="post"
-                                                    style="display: inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger"
-                                                        onclick="return confirm('Are you sure?')">Delete</button>
-                                                </form>
+                                            <form action="{{ route('books.restore', $book->id) }}" method="post" style="display: inline;">
+                                                @csrf
+                                                <button type="submit" class="btn btn-success">Restore</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

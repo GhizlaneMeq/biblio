@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EmpruntRequest;
 use App\Models\Emprunt;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EmpruntController extends Controller
 {
@@ -41,10 +42,7 @@ class EmpruntController extends Controller
 
         $emprunt = Emprunt::create($request->all());
 
-        //$book = Book::find($validatedData['book_id']);
-
-        //$book->decrement('available_copies');
-        return redirect()->route('emprunts.index')->with('success', 'Emprunt created successfully.');
+        return redirect()->back()->with('success', 'Emprunt created successfully.');
     }
 
     /**
@@ -86,4 +84,14 @@ class EmpruntController extends Controller
     {
         //
     }
+
+    public function userBorrowedBooks()
+    {
+        $userId = Auth::id();
+
+        $borrowedBooks = Emprunt::with('book')->where('user_id', $userId)->get();
+
+        return view('emprunts.user_books', compact('borrowedBooks'));
+    }
+    
 }

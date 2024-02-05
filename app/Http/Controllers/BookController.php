@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BookRequest;
 use App\Models\Book;
 
+
 class BookController extends Controller
 {
     /**
@@ -73,4 +74,17 @@ class BookController extends Controller
         $book->delete();
         return redirect('/books')->with('success','book has been deleted successfuly');
     }
+    public function archive(){
+        $books = Book::onlyTrashed()->get();
+        return view('book.Archive',compact('books'));
+    }
+
+
+    public function restore($id)
+    {
+        $book = Book::withTrashed()->findOrFail($id);
+        $book->restore();
+        return redirect('/books/archive')->with('success', 'Book has been restored successfully');
+    }
+
 }

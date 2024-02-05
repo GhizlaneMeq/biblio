@@ -132,12 +132,6 @@
                                     <a class="btn btn-outline-dark" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="btn btn-dark ms-2" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
                         @else
                         <li class="nav-item">
                             <a href="borrowed-books">borrowed books</a>
@@ -282,7 +276,7 @@
     </section>
 
 
-    <!-- FAQ Section -->
+    
     <section class="list05 cid-u2Tp7mOOKf" id="faq-3-u2Tp7mOOKf">
         <div class="container">
             <div class="col-12 mb-5 content-head">
